@@ -1,0 +1,29 @@
+{
+    "name": "mobilenowgroup/laravel-coupon",
+    "description": "This is a package of coupon",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Donny",
+            "email": "zhikaiz89@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "laravel/nova": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Coupon\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Coupon\\Providers\\CouponServiceProvider"
+            ],
+            "aliases": {}
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "name": "devzzk/laravel-oss",
+    "description": "This is a package about laravel use oss storage",
+    "require": {
+        "php": "^8.2",
+        "ext-curl": "*",
+        "aliyuncs/oss-sdk-php": "^2.4"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.14",
+        "larastan/larastan": "^2.9",
+        "pestphp/pest": "^2.34"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Devzzk\\LaravelOss\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Donny",
+            "email": "zhikaiz89@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Devzzk\\LaravelOss\\OssServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

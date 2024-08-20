@@ -1,0 +1,109 @@
+services:
+    ## Workspace ################################################################
+    workspace:
+        image: registry.cn-hangzhou.aliyuncs.com/mn/laravel-workspace-octane:dev-8.2.0
+        depends_on:
+            - mysql
+            - redis
+        volumes:
+            - ./:/var/www:cached
+        tty: true
+        logging:
+            options:
+                max-file: "5"
+                max-size: "10m"
+
+ ## php-fpm ################################################################
+    php-fpm:
+        image: registry.cn-hangzhou.aliyuncs.com/mn/laravel-php_fpm-octane:dev-8.2.0
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        depends_on:
+            - mysql
+            - redis
+        volumes:
+            - ./docker/php-fpm/php8.2.ini:/usr/local/etc/php/php.ini
+            - ./:/var/www:cached
+            - /var/www/node_modules
+        cap_add:
+            - SYS_PTRACE
+        expose:
+            - 9000
+            - 8000
+        restart: on-failure
+        logging:
+            options:
+                max-file: "5"
+                max-size: "10m"
+    php-worker:
+        image: registry.cn-hangzhou.aliyuncs.com/mn/laravel-php_worker-octane:dev-8.2.0
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        depends_on:
+            - mysql
+            - redis
+            - php-fpm
+        links:
+            - php-fpm
+        volumes:
+            - ./:/var/www:cached
+            - ./docker/php-worker/supervisord.d:/etc/supervisord.d
+        logging:
+            options:
+                max-file: "5"
+                max-size: "10m"
+
+    ### NGINX Server #########################################
+    nginx:
+        image: mobilenowdev/mn_laravel_nginx:local-202401.1
+        build:
+            context: ./docker/nginx
+        volumes:
+            - ./:/var/www:cached
+            - ./docker/docker-runtime/nginx/log:/var/log/nginx
+            - ./docker/nginx/local/sites:/etc/nginx/sites-available
+        ports:
+            - "8000:80"
+        depends_on:
+            - php-fpm
+        links:
+            - php-fpm
+        logging:
+            options:
+                max-file: "5"
+                max-size: "10m"
+
+    ### MySQL ################################################
+    mysql:
+        platform: linux/x86_64
+        build:
+            context: ./docker/mysql
+            args:
+                - MYSQL_VERSION=8.0
+        environment:
+            - MYSQL_USER=laravel
+            - MYSQL_PASSWORD=123456
+            - MYSQL_ROOT_PASSWORD=123456
+            - TZ=Asia/Shanghai
+        volumes:
+            - ./docker/docker-runtime/mysql:/var/lib/mysql
+            - ./docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+        ports:
+            - "33060:3306"
+        logging:
+            options:
+                max-file: "5"
+                max-size: "10m"
+
+    ### Redis ################################################
+    redis:
+        platform: linux/amd64
+        image: redis:latest
+        volumes:
+            - ./docker/docker-runtime/redis:/data
+        ports:
+            - "6379:6379"
+        logging:
+            options:
+                max-file: "5"
+                max-size: "10m"

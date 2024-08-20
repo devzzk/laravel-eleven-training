@@ -1,0 +1,43 @@
+{
+    "messages": [
+        {
+            "role": "assistant",
+            "type": "verbose",
+            "content": "{\"msg_type\":\"time_capsule_recall\",\"data\":\"{\\\"wraped_text\\\":\\\"\\\",\\\"origin_search_results\\\":\\\"[]\\\"}\",\"from_module\":null,\"from_unit\":null}",
+            "content_type": "text"
+        },
+        {
+            "role": "assistant",
+            "type": "answer",
+            "content": "SaaS 服务是一种软件服务模式，即软件即服务（Software as a Service）。在这种模式下，软件应用程序由服务提供商托管在云端，并通过网络提供给用户使用。用户无需在本地安装和维护软件，只需通过互联网连接即可访问和使用所需的软件功能，通常按照订阅或按需付费的方式支付费用。例如常见的在线办公软件、客户关系管理系统等都可能以 SaaS 服务的形式提供。\n\n请问您是想创建关于 SaaS 服务的相关数据，还是对已有的相关数据进行优化呢？ ",
+            "content_type": "text"
+        },
+        {
+            "role": "assistant",
+            "type": "verbose",
+            "content": "{\"msg_type\":\"generate_answer_finish\",\"data\":\"{\\\"finish_reason\\\":0}\",\"from_module\":null,\"from_unit\":null}",
+            "content_type": "text"
+        },
+        {
+            "role": "assistant",
+            "type": "follow_up",
+            "content": "有哪些比较成功的 SaaS 服务案例？",
+            "content_type": "text"
+        },
+        {
+            "role": "assistant",
+            "type": "follow_up",
+            "content": "企业采用 SaaS 服务有哪些好处？",
+            "content_type": "text"
+        },
+        {
+            "role": "assistant",
+            "type": "follow_up",
+            "content": "SaaS 服务的安全性如何保障？",
+            "content_type": "text"
+        }
+    ],
+    "conversation_id": "66a09f2a787c2",
+    "code": 0,
+    "msg": "success"
+}
